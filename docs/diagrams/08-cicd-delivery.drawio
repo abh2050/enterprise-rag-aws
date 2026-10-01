@@ -1,0 +1,79 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="cd" name="CI/CD">
+    <mxGraphModel dx="2800" dy="1350" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1150" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="bg" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="2400" height="1150" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e2" value="PR" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="dev" target="gh">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="gh" target="ci">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e4" value="main" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ci" target="dp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e5" value="OIDC" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;dashed=1;strokeColor=#879196;fontColor=#545B64;" edge="1" parent="1" source="dp" target="role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e6" value="push" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="role" target="ecr">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e7" value="digest" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="ecr" target="ecs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e8" value="sync" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="role" target="web">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="web" target="cf">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=1;" edge="1" parent="1" source="tf" target="st">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-title1" value="&lt;b style='font-size:20px'&gt;Build &amp;amp; delivery&lt;/b&gt;&lt;br&gt;enterprise-rag-platform · dev env (us-east-2) · 2026-10-01 · GitHub Actions (SHA-pinned) → OIDC → ECR / ECS / S3 + CloudFront" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=13;spacing=8;fontColor=#232F3E;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="1500" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="dev" value="Engineer" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#232F3D;strokeColor=none;dashed=0;aspect=fixed;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="60" y="380" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="gh" value="GitHub repo&lt;br&gt;(to be connected)" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#232F3D;strokeColor=none;dashed=0;aspect=fixed;shape=mxgraph.aws4.source_code;" vertex="1" parent="1">
+          <mxGeometry x="280" y="380" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ci" value="&lt;b&gt;ci.yml&lt;/b&gt;&lt;br&gt;ruff · mypy --strict · pytest (unit, integration with real OpenSearch + DynamoDB Local, e2e, security) · vitest + axe · gitleaks · pip-audit / npm audit · terraform fmt + validate · docker build" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#545B64;fontSize=11;fontColor=#232F3E;align=center;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="500" y="330" width="320" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="dp" value="&lt;b&gt;deploy.yml&lt;/b&gt;&lt;br&gt;environment approval&lt;br&gt;multi-arch buildx (ARM64 API, x86 worker)&lt;br&gt;&lt;i&gt;written — not yet run&lt;/i&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#545B64;fontSize=11;fontColor=#232F3E;align=center;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="900" y="350" width="280" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="role" value="GitHub OIDC provider&lt;br&gt;+ scoped deploy role&lt;br&gt;&lt;i&gt;not created in dev&lt;/i&gt;" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#DD344C;strokeColor=none;dashed=0;aspect=fixed;shape=mxgraph.aws4.role;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="380" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ecr" value="ECR&lt;br&gt;immutable tags · scan on push" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecr;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="220" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="ecs" value="ECS services&lt;br&gt;api · worker (rolling,&lt;br&gt;circuit-breaker rollback)" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ecs;" vertex="1" parent="1">
+          <mxGeometry x="1900" y="220" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="web" value="S3 web bucket" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="560" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="cf" value="CloudFront&lt;br&gt;invalidation" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" vertex="1" parent="1">
+          <mxGeometry x="1900" y="560" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="tf" value="&lt;b&gt;Terraform 1.13 · infra/terraform/envs/{dev,staging,prod}&lt;/b&gt;&lt;br&gt;plan → human approval → apply; separate state per env" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#545B64;fontSize=11;fontColor=#232F3E;align=center;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="900" y="720" width="340" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="st" value="State bucket&lt;br&gt;versioned · KMS · lockfile" style="sketch=0;outlineConnect=0;html=1;fontSize=12;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;verticalLabelPosition=bottom;verticalAlign=top;align=center;fillColor=#7AA116;strokeColor=none;dashed=0;aspect=fixed;shape=mxgraph.aws4.bucket;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="730" width="78" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="cd-note11" value="&lt;b&gt;How dev was actually deployed:&lt;/b&gt; from a workstation with scripts/deploy-ecs.sh (same buildx multi-arch build, push to ECR, ECS update, wait for steady state) and scripts/rollback-ecs.sh — every Terraform apply was approved by a human. GitHub OIDC needs github_repository set; note that an org SCP currently denies iam:ListOpenIDConnectProviders, so confirm OIDC is permitted before relying on it." style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=11;fontColor=#232F3E;spacing=10;fillColor=#FFFFFF;strokeColor=#D5DBDB;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry x="60" y="900" width="1500" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

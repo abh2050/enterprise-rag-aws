@@ -1,0 +1,53 @@
+{
+  "provenance": {
+    "source": "var/verification/lifecycle-dev.json",
+    "source_sha256": "af076c612d0810b23404e16ae7953dee1b2bbb12b37b96c391dfcaab44f1c15d",
+    "note": "Existing verification output captured on 2026-10-01; reviewed for documentation, not re-executed for this documentation update. Infrastructure identifiers omitted or redacted. Synthetic corpus and principals only."
+  },
+  "report": {
+    "env": "dev",
+    "checked_at": "2026-10-01T16:52:28.870077+00:00",
+    "results": [
+      {
+        "check": "PDF with table parsed + embedded + published",
+        "status": "PASS",
+        "evidence": "ingestion freshness \u22486s from upload to searchable"
+      },
+      {
+        "check": "DOCX parsed + published",
+        "status": "PASS",
+        "evidence": "status=published"
+      },
+      {
+        "check": "Scanned page OCR'd by Textract (no quarantine)",
+        "status": "PASS",
+        "evidence": "status=published; coverage={\"coverage_ratio\": 1.0, \"covered_pages\": 2, \"extraction_version\": \"extract-v1\", \"pages\": 2, \"uncovered\": [], \"unprocessed_images\": 0, \"warnings\": []}"
+      },
+      {
+        "check": "ClamAV quarantines EICAR test file (never searchable)",
+        "status": "PASS",
+        "evidence": "status=quarantined"
+      },
+      {
+        "check": "Version replacement: new revision published, old retired",
+        "status": "PASS",
+        "evidence": "v1=v_92cf3ecaf0af7057 \u2192 v2=v_fd4f93d71a9876ff; old manifest=retired"
+      },
+      {
+        "check": "Permission-only change: ACL version bumped, grants replaced, content unchanged",
+        "status": "PASS",
+        "evidence": "acl_version 1\u21922; allowed=['group:acme-engineering']"
+      },
+      {
+        "check": "Duplicate event delivery is idempotent",
+        "status": "PASS",
+        "evidence": "first=unchanged, second=duplicate"
+      },
+      {
+        "check": "Source deletion tombstones the document (revoked + deleted)",
+        "status": "PASS",
+        "evidence": "status=deleted"
+      }
+    ]
+  }
+}

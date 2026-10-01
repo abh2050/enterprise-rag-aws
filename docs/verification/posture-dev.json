@@ -1,0 +1,362 @@
+{
+  "provenance": {
+    "source": "var/verification/posture-dev.json",
+    "source_sha256": "8645ab723386336c83efbf66076fe99d64764e84f6aff07bfe5f416da38ed896",
+    "note": "Existing verification output captured on 2026-10-01; reviewed for documentation, not re-executed for this documentation update. Infrastructure identifiers omitted or redacted. Synthetic corpus and principals only."
+  },
+  "report": {
+    "env": "dev",
+    "region": "us-east-2",
+    "checked_at": "2026-10-01T17:18:39.355894+00:00",
+    "results": [
+      {
+        "area": "storage",
+        "control": "S3 source: Block Public Access (all four)",
+        "status": "PASS",
+        "evidence": "{\"BlockPublicAcls\": true, \"IgnorePublicAcls\": true, \"BlockPublicPolicy\": true, \"RestrictPublicBuckets\": true}"
+      },
+      {
+        "area": "storage",
+        "control": "S3 source: versioning",
+        "status": "PASS",
+        "evidence": "versioning=Enabled"
+      },
+      {
+        "area": "storage",
+        "control": "S3 source: default encryption",
+        "status": "PASS",
+        "evidence": "SSE=aws:kms"
+      },
+      {
+        "area": "storage",
+        "control": "S3 artifacts: Block Public Access (all four)",
+        "status": "PASS",
+        "evidence": "{\"BlockPublicAcls\": true, \"IgnorePublicAcls\": true, \"BlockPublicPolicy\": true, \"RestrictPublicBuckets\": true}"
+      },
+      {
+        "area": "storage",
+        "control": "S3 artifacts: versioning",
+        "status": "PASS",
+        "evidence": "versioning=Enabled"
+      },
+      {
+        "area": "storage",
+        "control": "S3 artifacts: default encryption",
+        "status": "PASS",
+        "evidence": "SSE=aws:kms"
+      },
+      {
+        "area": "storage",
+        "control": "S3 config: Block Public Access (all four)",
+        "status": "PASS",
+        "evidence": "{\"BlockPublicAcls\": true, \"IgnorePublicAcls\": true, \"BlockPublicPolicy\": true, \"RestrictPublicBuckets\": true}"
+      },
+      {
+        "area": "storage",
+        "control": "S3 config: versioning",
+        "status": "PASS",
+        "evidence": "versioning=Enabled"
+      },
+      {
+        "area": "storage",
+        "control": "S3 config: default encryption",
+        "status": "PASS",
+        "evidence": "SSE=aws:kms"
+      },
+      {
+        "area": "storage",
+        "control": "S3 web: Block Public Access (all four)",
+        "status": "PASS",
+        "evidence": "{\"BlockPublicAcls\": true, \"IgnorePublicAcls\": true, \"BlockPublicPolicy\": true, \"RestrictPublicBuckets\": true}"
+      },
+      {
+        "area": "storage",
+        "control": "S3 web: versioning",
+        "status": "PASS",
+        "evidence": "versioning=Enabled"
+      },
+      {
+        "area": "storage",
+        "control": "S3 web: default encryption",
+        "status": "PASS",
+        "evidence": "SSE=AES256"
+      },
+      {
+        "area": "storage",
+        "control": "S3 cloudtrail: Block Public Access (all four)",
+        "status": "PASS",
+        "evidence": "{\"BlockPublicAcls\": true, \"IgnorePublicAcls\": true, \"BlockPublicPolicy\": true, \"RestrictPublicBuckets\": true}"
+      },
+      {
+        "area": "storage",
+        "control": "S3 cloudtrail: versioning",
+        "status": "PASS",
+        "evidence": "versioning=Enabled"
+      },
+      {
+        "area": "storage",
+        "control": "S3 cloudtrail: default encryption",
+        "status": "PASS",
+        "evidence": "SSE=AES256"
+      },
+      {
+        "area": "storage",
+        "control": "S3 s3logs: Block Public Access (all four)",
+        "status": "PASS",
+        "evidence": "{\"BlockPublicAcls\": true, \"IgnorePublicAcls\": true, \"BlockPublicPolicy\": true, \"RestrictPublicBuckets\": true}"
+      },
+      {
+        "area": "storage",
+        "control": "S3 s3logs: default encryption",
+        "status": "PASS",
+        "evidence": "SSE=AES256"
+      },
+      {
+        "area": "storage",
+        "control": "S3 artifacts: Object Lock enabled (legal holds)",
+        "status": "PASS",
+        "evidence": "{\"ObjectLockEnabled\": \"Enabled\"}"
+      },
+      {
+        "area": "storage",
+        "control": "S3 artifacts: deny non-TLS requests",
+        "status": "PASS",
+        "evidence": "1 TLS-deny statement(s)"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB: 9 application tables exist",
+        "status": "PASS",
+        "evidence": "erp-dev-answer_cache, erp-dev-chunk_manifest, erp-dev-connector_state, erp-dev-conversations, erp-dev-documents, erp-dev-events, erp-dev-feedback, erp-dev-usage, erp-dev-workflow"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-answer_cache: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-answer_cache: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-chunk_manifest: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-chunk_manifest: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-connector_state: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-connector_state: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-conversations: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-conversations: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-documents: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-documents: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-events: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-events: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-feedback: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-feedback: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-usage: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-usage: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-workflow: point-in-time recovery",
+        "status": "PASS",
+        "evidence": "PITR"
+      },
+      {
+        "area": "data",
+        "control": "DynamoDB erp-dev-workflow: KMS encryption",
+        "status": "PASS",
+        "evidence": "{\"Status\": \"ENABLED\", \"SSEType\": \"KMS\", \"KMSMasterKeyArn\": \"[AWS resource identifier redacted]"
+      },
+      {
+        "area": "search",
+        "control": "OpenSearch: pinned 3.1, VPC-only, encrypted, TLS1.2+, FGAC",
+        "status": "PASS",
+        "evidence": "OpenSearch_3.1, VPC-only, at-rest+node-to-node encryption, HTTPS Policy-Min-TLS-1-2-PFS-2023-10, FGAC enabled"
+      },
+      {
+        "area": "crypto",
+        "control": "KMS data key: automatic rotation",
+        "status": "PASS",
+        "evidence": "alias/erp-dev-data"
+      },
+      {
+        "area": "crypto",
+        "control": "KMS logs key: automatic rotation",
+        "status": "PASS",
+        "evidence": "alias/erp-dev-logs"
+      },
+      {
+        "area": "crypto",
+        "control": "KMS audit key: automatic rotation",
+        "status": "PASS",
+        "evidence": "alias/erp-dev-audit"
+      },
+      {
+        "area": "compute",
+        "control": "ECS: api and worker services running at desired count",
+        "status": "PASS",
+        "evidence": "{\"api\": \"1/1\", \"worker\": \"1/1\"}"
+      },
+      {
+        "area": "network",
+        "control": "ECS tasks: private subnets, no public IPs",
+        "status": "PASS",
+        "evidence": "2 task ENIs, 0 with public IPs"
+      },
+      {
+        "area": "compute",
+        "control": "ECS app containers: read-only root FS, non-root user",
+        "status": "PASS",
+        "evidence": "erp-dev-api:readonlyRoot=True,user=app; erp-dev-worker:readonlyRoot=True,user=app"
+      },
+      {
+        "area": "ingress",
+        "control": "ALB: internal-only, API targets healthy",
+        "status": "PASS",
+        "evidence": "scheme=internal, targets=['healthy']"
+      },
+      {
+        "area": "ingress",
+        "control": "WAF (regional) associated with ALB",
+        "status": "PASS",
+        "evidence": "web ACL=erp-dev-alb"
+      },
+      {
+        "area": "ingress",
+        "control": "CloudFront: WAF, HTTPS-only, private VPC origin",
+        "status": "PASS",
+        "evidence": "[distribution hostname redacted]: WAF attached, HTTPS enforced, API via VPC origin"
+      },
+      {
+        "area": "ingestion",
+        "control": "SQS ingest-events: KMS-encrypted with DLQ",
+        "status": "PASS",
+        "evidence": "KMS + DLQ"
+      },
+      {
+        "area": "ingestion",
+        "control": "SQS worker-tasks: KMS-encrypted with DLQ",
+        "status": "PASS",
+        "evidence": "KMS + DLQ"
+      },
+      {
+        "area": "ingestion",
+        "control": "Step Functions: active, traced, logged",
+        "status": "PASS",
+        "evidence": "ACTIVE, X-Ray tracing, logging"
+      },
+      {
+        "area": "audit",
+        "control": "CloudTrail: logging + validation + KMS + data events",
+        "status": "PASS",
+        "evidence": "logging, multi-region, log-file validation, KMS, S3 data events on document buckets"
+      },
+      {
+        "area": "audit",
+        "control": "Security audit log group: dedicated KMS key, \u22657y retention",
+        "status": "PASS",
+        "evidence": "retention=2557d, KMS"
+      },
+      {
+        "area": "recovery",
+        "control": "AWS Backup: daily plan with selection",
+        "status": "PASS",
+        "evidence": "plan erp-dev-daily with 1 selection(s)"
+      },
+      {
+        "area": "supply-chain",
+        "control": "ECR: immutable tags, scan on push, KMS",
+        "status": "PASS",
+        "evidence": "immutable tags, scan on push, KMS"
+      },
+      {
+        "area": "supply-chain",
+        "control": "ECR image scan: no CRITICAL findings",
+        "status": "PASS",
+        "evidence": "['v0.1.0-20261001f']: amd64: COMPLETE {'HIGH': 2, 'MEDIUM': 1}; arm64: COMPLETE {'HIGH': 2, 'MEDIUM': 1}"
+      },
+      {
+        "area": "iam",
+        "control": "Task roles: no wildcard actions",
+        "status": "PASS",
+        "evidence": "no wildcard actions in task-role policies"
+      },
+      {
+        "area": "iam",
+        "control": "Bedrock access limited to approved model ARNs",
+        "status": "PASS",
+        "evidence": "6 model/profile ARNs"
+      }
+    ]
+  }
+}

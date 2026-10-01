@@ -1,0 +1,72 @@
+{
+  "provenance": {
+    "source": "var/verification/edge.json",
+    "source_sha256": "6cb00da0c014c088c73456b89b5526b2126795d515e6d160e3efa0f553397336",
+    "note": "Existing verification output captured on 2026-10-01; reviewed for documentation, not re-executed for this documentation update. Infrastructure identifiers omitted or redacted. Synthetic corpus and principals only."
+  },
+  "report": {
+    "checked_at": "2026-10-01T17:18:26.269743+00:00",
+    "results": [
+      {
+        "check": "SPA served from private S3 via CloudFront (OAC)",
+        "status": "PASS",
+        "evidence": "HTTP 200"
+      },
+      {
+        "check": "Security headers on SPA",
+        "status": "PASS",
+        "evidence": "strict-transport-security, content-security-policy, x-content-type-options, x-frame-options, referrer-policy"
+      },
+      {
+        "check": "Plain HTTP redirected to HTTPS",
+        "status": "PASS",
+        "evidence": "HTTP 301"
+      },
+      {
+        "check": "API reachable: CloudFront \u2192 VPC origin \u2192 internal ALB \u2192 ECS",
+        "status": "PASS",
+        "evidence": "HTTP 200"
+      },
+      {
+        "check": "API readiness: OpenSearch (SigV4/FGAC) + DynamoDB",
+        "status": "PASS",
+        "evidence": "{\"status\":\"ok\",\"checks\":{\"opensearch\":\"ok\",\"dynamodb\":\"ok\"}}"
+      },
+      {
+        "check": "Trace id returned on every response",
+        "status": "PASS",
+        "evidence": "X-Trace-Id present"
+      },
+      {
+        "check": "No token \u2192 401",
+        "status": "PASS",
+        "evidence": "HTTP 401"
+      },
+      {
+        "check": "Forged alg=none token \u2192 401",
+        "status": "PASS",
+        "evidence": "HTTP 401"
+      },
+      {
+        "check": "Citation endpoint requires authentication",
+        "status": "PASS",
+        "evidence": "HTTP 401"
+      },
+      {
+        "check": "Development IdP not mounted in AWS",
+        "status": "PASS",
+        "evidence": "HTTP 403"
+      },
+      {
+        "check": "Interactive API docs disabled outside local",
+        "status": "PASS",
+        "evidence": "HTTP 404"
+      },
+      {
+        "check": "WAF blocks known-bad input (Log4Shell probe)",
+        "status": "PASS",
+        "evidence": "HTTP 403"
+      }
+    ]
+  }
+}
