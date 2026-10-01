@@ -64,7 +64,7 @@ Every result above is traceable to a [preserved report](docs/verification/README
 | Ingestion | Source adapters, version-pinned capture, scan, parse/OCR, structure-aware chunks, staged publication, retirement, quarantine/replay, reconciliation | [`services/ingestion`](services/ingestion), [`packages/connectors`](packages/connectors) |
 | Governance | Separate source ACL and classification inputs; manual manifests; Graph/Purview adapters with conservative permission translation | [`policy_translation.py`](packages/auth/erp_auth/policy_translation.py), [`purview.py`](packages/connectors/erp_connectors/purview.py) |
 | Observability | Trace propagation, redacted bounded export, dedicated security audit sink, optional LangSmith exporter | [`packages/observability`](packages/observability) |
-| Cloud platform | 15 Terraform module directories, dev/staging/prod roots, private compute/search, encrypted stores, queues, workflow orchestration, edge protection, backups and delivery roles | [`infra/terraform`](infra/terraform) |
+| Cloud platform | 14 Terraform module directories, dev/staging/prod roots, private compute/search, encrypted stores, queues, workflow orchestration, edge protection, backups and delivery roles | [`infra/terraform`](infra/terraform) |
 | Quality tooling | Unit/integration/security/e2e/cloud tests, synthetic corpus, evaluation metrics, scenario tests, human-label calibration tooling | [`tests`](tests), [`evals`](evals) |
 
 ## AWS architecture
