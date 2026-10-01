@@ -1,6 +1,6 @@
 # Verification evidence — 1 October 2026
 
-These snapshots preserve existing verification outputs found in `var/verification/` during the repository documentation review. They were **not re-run as part of the documentation update**. Each JSON includes the original file SHA-256, timestamp, and provenance; infrastructure identifiers have been omitted or redacted. They describe the recorded dev deployment, not its current availability or production certification.
+These snapshots preserve existing verification outputs found in `var/verification/` during the repository documentation review. They were **not re-run as part of the documentation update**. Each JSON includes the original file SHA-256, timestamp, and provenance; infrastructure identifiers have been omitted or redacted. They describe the recorded dev deployment, not its current availability or production certification. **The dev stack was destroyed on 2026-10-01 after these checks** (162 resources, `terraform destroy`), so the checks cannot be re-run without redeploying.
 
 | Artifact | Recorded result | How it was produced |
 |---|---|---|

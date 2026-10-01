@@ -16,7 +16,7 @@ Enterprise search gets difficult when documents change, access is revoked, model
 
 The result is an application with a React research interface, a FastAPI service, a checkpointed ingestion pipeline, a policy-controlled model gateway, an evaluation harness, and modular AWS infrastructure. Its central design choice is simple: **OpenSearch finds candidates; DynamoDB decides whether they can still be used.**
 
-> **Evidence snapshot — 1 October 2026.** AWS dev was deployed in `us-east-2`. Existing verification reports record a live Bedrock evaluation, ingestion lifecycle checks, edge checks, and infrastructure checks. Real Entra sign-in, Microsoft integrations, production scale, and human-calibrated answer quality remain unverified. These reports were reviewed and preserved during this documentation update; AWS tests were not re-executed. See the [evidence and limitations](docs/verification/README.md).
+> **Evidence snapshot — 1 October 2026.** AWS dev was deployed in `us-east-2`, verified, and **torn down the same day** to stop billing, so there is no live URL. `terraform apply` in `infra/terraform/envs/dev` recreates it. The verification reports record a live Bedrock evaluation, ingestion lifecycle checks, edge checks, and infrastructure checks. Real Entra sign-in, Microsoft integrations, production scale, and human-calibrated answer quality remain unverified. These reports were reviewed and preserved during this documentation update; AWS tests were not re-executed. See the [evidence and limitations](docs/verification/README.md).
 
 ## Contents
 

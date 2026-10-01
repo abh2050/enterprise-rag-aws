@@ -243,3 +243,10 @@ A later repository review found verification outputs newer than the initial Stag
 - `lifecycle-dev.json` (16:52 UTC): eight passing ingestion checks, including Textract and ClamAV.
 
 These results supersede earlier “API at 0 tasks” and “Nova/Textract not live-tested” status notes for that snapshot. They do not prove real Entra sign-in, current uptime, calibration, load performance or production readiness. No AWS verification calls or infrastructure changes were made as part of this documentation reconciliation. Application, configuration, infrastructure and test source files were preserved.
+
+## Re-verification and teardown (2026-10-01)
+
+- Final image `v0.1.0-20261001f`: edge 12/12, posture 58/58 (image check now reads per-architecture scan results), in-VPC evaluation 7/7 scenarios.
+- New receipts: `ops-dev.json` (alarm → SNS, AWS Backup job, CloudTrail delivery, audit-log leak scan; 4/4) and `cloud-verify-dev-coldrun.json` (cold-path latency/cost reference). Image findings and disposition: [security-scan.md](security-scan.md).
+- **Dev stack destroyed** at the owner's request: `terraform destroy` removed all 162 resources; a follow-up AWS inventory found nothing billable. Remaining: three KMS keys pending deletion until 2026-10-31, and the Terraform state bucket (~12 MB, kept for redeploys).
+- Redeploy: `terraform apply` in `infra/terraform/envs/dev`, then `scripts/deploy-ecs.sh` and `scripts/upload-docs.sh` (see [deploy runbook](runbooks/deploy.md)).

@@ -1,6 +1,6 @@
 # Architecture: enterprise-rag-platform
 
-Status: design of record for this repository. AWS **dev was deployed in us-east-2**; later
+Status: design of record for this repository. AWS **dev was deployed in us-east-2** and destroyed on 2026-10-01 after verification; 
 [verification snapshots](verification/README.md) record live application/ingestion and edge/posture checks.
 Staging/prod and optional LangSmith are not recorded as deployed. Entra sign-in remains unverified.
 Diagram topology is conceptual; current Terraform and the evidence matrix define environment-specific behavior.
