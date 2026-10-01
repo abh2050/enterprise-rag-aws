@@ -1,0 +1,6 @@
+# Separate state per environment (separate AWS accounts recommended). Created by scripts/bootstrap-state.sh.
+bucket       = "erp-tfstate-<account-id>-dev"
+key          = "core/terraform.tfstate"
+region       = "us-east-2"
+encrypt      = true
+use_lockfile = true

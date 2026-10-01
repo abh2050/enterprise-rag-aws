@@ -1,0 +1,14 @@
+# Versioned Purview → internal label mapping. Label GUIDs are tenant-specific PLACEHOLDERS; replace with the
+# GUIDs from your tenant's Purview Information Protection label policy before enabling the adapter.
+mapping_version: governance-map-v1
+max_metadata_age_seconds: 86400
+label_ids:
+  "00000000-0000-0000-0000-00000000a001": public
+  "00000000-0000-0000-0000-00000000a002": internal
+  "00000000-0000-0000-0000-00000000a003": confidential
+  "00000000-0000-0000-0000-00000000a004": restricted
+classifications:
+  MICROSOFT.PERSONAL.EMAIL: confidential
+  MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER: restricted
+  MICROSOFT.GOVERNMENT.US.SOCIAL_SECURITY_NUMBER: restricted
+unmapped_classification_label: confidential   # an unrecognised classification is treated conservatively

@@ -1,0 +1,63 @@
+# Local development stack. Everything binds to 127.0.0.1 only.
+# Gaps vs AWS (security plugin/IAM on OpenSearch, KMS, SQS/Step Functions) are documented in docs/local-vs-aws.md.
+name: erp
+
+services:
+  opensearch:
+    image: opensearchproject/opensearch:3.1.0
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g
+      # Local only: security plugin disabled because the container is bound to loopback.
+      # AWS uses VPC-only domains with fine-grained access control + IAM SigV4 (infra/terraform/modules/opensearch).
+      - DISABLE_SECURITY_PLUGIN=true
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+      nofile: { soft: 65536, hard: 65536 }
+    ports: ["127.0.0.1:9200:9200"]
+    volumes: [opensearch-data:/usr/share/opensearch/data]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
+
+  dynamodb:
+    image: amazon/dynamodb-local:2.6.1
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-dbPath", "/home/dynamodblocal/data"]
+    user: root
+    ports: ["127.0.0.1:8001:8000"]
+    volumes: [dynamodb-data:/home/dynamodblocal/data]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -o /dev/null http://localhost:8000 || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    profiles: [app]
+    build: { context: ., dockerfile: apps/api/Dockerfile }
+    env_file: [.env.local]
+    environment:
+      - ERP_OPENSEARCH_URL=http://opensearch:9200
+      - ERP_DYNAMODB_ENDPOINT=http://dynamodb:8000
+      - ERP_ARTIFACT_ROOT=/var/erp/artifacts
+      - ERP_PUBLIC_BASE_URL=http://localhost:8000
+    ports: ["127.0.0.1:8000:8000"]
+    volumes: [artifacts:/var/erp/artifacts, ./data:/data:ro]
+    depends_on:
+      opensearch: { condition: service_healthy }
+      dynamodb: { condition: service_healthy }
+
+  web:
+    profiles: [app]
+    build: { context: apps/web, dockerfile: Dockerfile }
+    ports: ["127.0.0.1:5173:80"]
+    depends_on: [api]
+
+volumes:
+  opensearch-data:
+  dynamodb-data:
+  artifacts:

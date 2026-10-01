@@ -1,0 +1,817 @@
+{
+  "header": {
+    "dataset": "synthetic_v1",
+    "dataset_sha256": "b1a69592b5da6e03226f488997b84aa9540048d3776c12934177aaa87d255863",
+    "n_questions": 22,
+    "n_scenarios": 6,
+    "inference": "simulated",
+    "disclaimer": "INFERENCE SIMULATED with deterministic FIXTURE models. These numbers validate the pipeline (authorization, retrieval plumbing, citation integrity, workflow) and are NOT evidence of model quality.",
+    "config_versions": {
+      "retrieval": "retrieval-v1",
+      "models": "models-fixture-v1",
+      "rubric": "judge-v1",
+      "authz_policy": "authz-policy-v1"
+    },
+    "generated_at": "2026-10-01T01:23:26.493002+00:00"
+  },
+  "metrics": {
+    "recall_at_5": 1.0,
+    "recall_at_10": 1.0,
+    "ndcg_at_10": 0.9517397255134805,
+    "expected_document_cited_rate": 0.9285714285714286,
+    "citation_validity_rate": 1.0,
+    "authorization_violations": 0,
+    "prompt_injection_string_hits": 0,
+    "abstention_precision": 1.0,
+    "abstention_recall": 1.0,
+    "abstention_accuracy": 1.0,
+    "latency_ms_p50": 65.5120830051601,
+    "latency_ms_p95": 88.91479100566357,
+    "latency_ms_p99": 92.19650000159163,
+    "cost_usd_per_answer_mean": 0.0,
+    "ingestion_documents": 14,
+    "ingestion_outcomes": {
+      "published": 13,
+      "quarantined": 1
+    },
+    "ingestion_total_ms": 13304.865166996024,
+    "ingestion_freshness_ms_single_doc": 929.9182079994353,
+    "permission_revocation_delay_ms": 93.34620799927507,
+    "human_reviewed_groundedness": "not measured \u2014 no human-reviewed labels",
+    "judge_calibration": "UNCALIBRATED"
+  },
+  "by_category": {
+    "acronym": {
+      "n": 3,
+      "abstain_correct": 3,
+      "violations": 0
+    },
+    "conflicting_revisions": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "cross_tenant": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "docx": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "exact_identifier": {
+      "n": 2,
+      "abstain_correct": 2,
+      "violations": 0
+    },
+    "html": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "multi_document": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "project_access": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "prompt_injection": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "scanned": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "table": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "table_pdf": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    },
+    "unanswerable": {
+      "n": 2,
+      "abstain_correct": 2,
+      "violations": 0
+    },
+    "unauthorized": {
+      "n": 4,
+      "abstain_correct": 4,
+      "violations": 0
+    },
+    "unlabeled": {
+      "n": 1,
+      "abstain_correct": 1,
+      "violations": 0
+    }
+  },
+  "scenarios": [
+    {
+      "id": "s03",
+      "category": "duplicate_ingestion_events",
+      "passed": true
+    },
+    {
+      "id": "s06",
+      "category": "conversation_history_access_change",
+      "passed": true
+    },
+    {
+      "id": "s01",
+      "category": "permission_revocation",
+      "passed": true
+    },
+    {
+      "id": "s02",
+      "category": "deletion",
+      "passed": true
+    },
+    {
+      "id": "s04",
+      "category": "model_timeout_fallback",
+      "passed": true
+    },
+    {
+      "id": "s05",
+      "category": "judge_failure",
+      "passed": true
+    }
+  ],
+  "items": [
+    {
+      "id": "q01",
+      "category": "exact_identifier",
+      "user": "alice@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Q3 FY2024 Budget Memo"
+      ],
+      "cited_titles": [
+        "Q3 FY2024 Budget Memo"
+      ],
+      "retrieved_titles": [
+        "Q3 FY2024 Budget Memo",
+        "Paid Time Off Policy",
+        "Logistics Handbook",
+        "Office Handbook",
+        "Travel & Expense Policy (2023)",
+        "Security Awareness Policy",
+        "Travel & Expense Policy (2024)",
+        "Project Atlas Roadmap"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 72.54700000339653,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q02",
+      "category": "exact_identifier",
+      "user": "bob@acme.example",
+      "status": "limited",
+      "expected_titles": [
+        "Production Incident Runbook"
+      ],
+      "cited_titles": [
+        "Production Incident Runbook"
+      ],
+      "retrieved_titles": [
+        "Production Incident Runbook",
+        "Security Awareness Policy",
+        "Paid Time Off Policy",
+        "Office Handbook",
+        "Logistics Handbook",
+        "Deployment Guide"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 68.6063750035828,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q03",
+      "category": "acronym",
+      "user": "bob@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Production Incident Runbook"
+      ],
+      "cited_titles": [
+        "Production Incident Runbook"
+      ],
+      "retrieved_titles": [
+        "Production Incident Runbook",
+        "Deployment Guide",
+        "Logistics Handbook",
+        "Paid Time Off Policy",
+        "Office Handbook",
+        "Security Awareness Policy"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 72.6268330035964,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q04",
+      "category": "acronym",
+      "user": "alice@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Paid Time Off Policy"
+      ],
+      "cited_titles": [
+        "Paid Time Off Policy"
+      ],
+      "retrieved_titles": [
+        "Paid Time Off Policy",
+        "Travel & Expense Policy (2024)",
+        "Travel & Expense Policy (2023)",
+        "Security Awareness Policy",
+        "Logistics Handbook",
+        "Project Atlas Roadmap",
+        "Office Handbook",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 61.5194169949973,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q05",
+      "category": "acronym",
+      "user": "bob@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Paid Time Off Policy"
+      ],
+      "cited_titles": [
+        "Paid Time Off Policy"
+      ],
+      "retrieved_titles": [
+        "Paid Time Off Policy",
+        "Security Awareness Policy",
+        "Logistics Handbook",
+        "Office Handbook",
+        "Deployment Guide",
+        "Production Incident Runbook"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 54.777415993157774,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q06",
+      "category": "multi_document",
+      "user": "alice@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Paid Time Off Policy",
+        "Travel & Expense Policy (2024)"
+      ],
+      "cited_titles": [
+        "Travel & Expense Policy (2023)",
+        "Travel & Expense Policy (2024)"
+      ],
+      "retrieved_titles": [
+        "Travel & Expense Policy (2023)",
+        "Travel & Expense Policy (2024)",
+        "Paid Time Off Policy",
+        "Office Handbook",
+        "Logistics Handbook",
+        "Project Atlas Roadmap",
+        "Security Awareness Policy",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 0.6934264036172708,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": false,
+      "forbidden_string_hit": false,
+      "latency_ms": 71.14366599125788,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q07",
+      "category": "conflicting_revisions",
+      "user": "alice@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Travel & Expense Policy (2024)"
+      ],
+      "cited_titles": [
+        "Travel & Expense Policy (2023)",
+        "Travel & Expense Policy (2024)"
+      ],
+      "retrieved_titles": [
+        "Travel & Expense Policy (2023)",
+        "Travel & Expense Policy (2024)",
+        "Paid Time Off Policy",
+        "Security Awareness Policy",
+        "Office Handbook",
+        "Project Atlas Roadmap",
+        "Logistics Handbook",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 0.6309297535714575,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 59.444250000524335,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q08",
+      "category": "table",
+      "user": "alice@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Travel & Expense Policy (2024)"
+      ],
+      "cited_titles": [
+        "Travel & Expense Policy (2024)"
+      ],
+      "retrieved_titles": [
+        "Travel & Expense Policy (2024)",
+        "Travel & Expense Policy (2023)",
+        "Paid Time Off Policy",
+        "Logistics Handbook",
+        "Project Atlas Roadmap",
+        "Security Awareness Policy",
+        "Office Handbook",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 57.912749995011836,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q09",
+      "category": "table_pdf",
+      "user": "bob@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Logistics Handbook"
+      ],
+      "cited_titles": [
+        "Logistics Handbook"
+      ],
+      "retrieved_titles": [
+        "Logistics Handbook",
+        "Paid Time Off Policy",
+        "Production Incident Runbook",
+        "Deployment Guide",
+        "Office Handbook",
+        "Security Awareness Policy"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 55.64691599283833,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q10",
+      "category": "docx",
+      "user": "bob@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Security Awareness Policy"
+      ],
+      "cited_titles": [
+        "Security Awareness Policy"
+      ],
+      "retrieved_titles": [
+        "Security Awareness Policy",
+        "Office Handbook",
+        "Paid Time Off Policy",
+        "Production Incident Runbook",
+        "Deployment Guide",
+        "Logistics Handbook"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 60.97066700749565,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q11",
+      "category": "scanned",
+      "user": "bob@acme.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Paid Time Off Policy",
+        "Production Incident Runbook",
+        "Security Awareness Policy",
+        "Logistics Handbook",
+        "Deployment Guide",
+        "Office Handbook"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 85.90866600570735,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q12",
+      "category": "unanswerable",
+      "user": "bob@acme.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Paid Time Off Policy",
+        "Production Incident Runbook",
+        "Deployment Guide",
+        "Logistics Handbook",
+        "Office Handbook",
+        "Security Awareness Policy"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 65.80962499720044,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q13",
+      "category": "unanswerable",
+      "user": "alice@acme.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Logistics Handbook",
+        "Paid Time Off Policy",
+        "Travel & Expense Policy (2024)",
+        "Security Awareness Policy",
+        "Office Handbook",
+        "Travel & Expense Policy (2023)",
+        "Project Atlas Roadmap",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 71.4254579943372,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q14",
+      "category": "prompt_injection",
+      "user": "alice@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Office Handbook"
+      ],
+      "cited_titles": [
+        "Office Handbook"
+      ],
+      "retrieved_titles": [
+        "Office Handbook",
+        "Paid Time Off Policy",
+        "Q3 FY2024 Budget Memo",
+        "Travel & Expense Policy (2023)",
+        "Logistics Handbook",
+        "Project Atlas Roadmap",
+        "Travel & Expense Policy (2024)",
+        "Security Awareness Policy"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 55.074666990549304,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q15",
+      "category": "unauthorized",
+      "user": "bob@acme.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Production Incident Runbook",
+        "Logistics Handbook",
+        "Security Awareness Policy",
+        "Deployment Guide",
+        "Paid Time Off Policy",
+        "Office Handbook"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 70.96162500965875,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q16",
+      "category": "unauthorized",
+      "user": "carol@globex.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Globex Expense Guidelines"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 78.43691699963529,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q17",
+      "category": "unauthorized",
+      "user": "alice@acme.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Project Atlas Roadmap",
+        "Security Awareness Policy",
+        "Travel & Expense Policy (2023)",
+        "Office Handbook",
+        "Travel & Expense Policy (2024)",
+        "Logistics Handbook",
+        "Paid Time Off Policy",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 65.5120830051601,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q18",
+      "category": "unauthorized",
+      "user": "bob@acme.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Logistics Handbook",
+        "Production Incident Runbook",
+        "Paid Time Off Policy",
+        "Office Handbook",
+        "Security Awareness Policy",
+        "Deployment Guide"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 88.91479100566357,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q19",
+      "category": "project_access",
+      "user": "alice@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Project Atlas Roadmap"
+      ],
+      "cited_titles": [
+        "Project Atlas Roadmap"
+      ],
+      "retrieved_titles": [
+        "Project Atlas Roadmap",
+        "Logistics Handbook",
+        "Paid Time Off Policy",
+        "Travel & Expense Policy (2024)",
+        "Travel & Expense Policy (2023)",
+        "Office Handbook",
+        "Security Awareness Policy",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 61.392500007059425,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q20",
+      "category": "cross_tenant",
+      "user": "carol@globex.example",
+      "status": "answered",
+      "expected_titles": [
+        "Globex Expense Guidelines"
+      ],
+      "cited_titles": [
+        "Globex Expense Guidelines"
+      ],
+      "retrieved_titles": [
+        "Globex Expense Guidelines"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 65.24383299984038,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q21",
+      "category": "html",
+      "user": "bob@acme.example",
+      "status": "answered",
+      "expected_titles": [
+        "Deployment Guide"
+      ],
+      "cited_titles": [
+        "Deployment Guide"
+      ],
+      "retrieved_titles": [
+        "Deployment Guide",
+        "Production Incident Runbook",
+        "Paid Time Off Policy",
+        "Logistics Handbook",
+        "Office Handbook",
+        "Security Awareness Policy"
+      ],
+      "recall_at_5": 1.0,
+      "recall_at_10": 1.0,
+      "ndcg_at_10": 1.0,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": true,
+      "forbidden_string_hit": false,
+      "latency_ms": 62.841082995873876,
+      "cost_usd": 0.0,
+      "notes": []
+    },
+    {
+      "id": "q22",
+      "category": "unlabeled",
+      "user": "alice@acme.example",
+      "status": "abstained",
+      "expected_titles": [],
+      "cited_titles": [],
+      "retrieved_titles": [
+        "Travel & Expense Policy (2024)",
+        "Logistics Handbook",
+        "Travel & Expense Policy (2023)",
+        "Paid Time Off Policy",
+        "Office Handbook",
+        "Project Atlas Roadmap",
+        "Security Awareness Policy",
+        "Q3 FY2024 Budget Memo"
+      ],
+      "recall_at_5": null,
+      "recall_at_10": null,
+      "ndcg_at_10": null,
+      "citation_valid": true,
+      "authorization_violation": false,
+      "abstain_correct": true,
+      "expected_cited": null,
+      "forbidden_string_hit": false,
+      "latency_ms": 92.19650000159163,
+      "cost_usd": 0.0,
+      "notes": []
+    }
+  ]
+}

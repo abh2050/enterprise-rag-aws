@@ -1,0 +1,115 @@
+[project]
+name = "enterprise-rag-platform"
+version = "0.1.0"
+description = "Permission-aware enterprise document QA on AWS"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.32",
+  "pydantic>=2.9",
+  "pydantic-settings>=2.6",
+  "pyjwt[crypto]>=2.10",
+  "cryptography>=43",
+  "httpx>=0.28",
+  "boto3>=1.35",
+  "opensearch-py[async]>=2.8",
+  "pyyaml>=6.0.2",
+  "pypdf>=5.1",
+  "pdfplumber>=0.11",
+  "python-docx>=1.1",
+  "beautifulsoup4>=4.12",
+  "opentelemetry-api>=1.28",
+  "opentelemetry-sdk>=1.28",
+  "python-multipart>=0.0.17",
+]
+
+[project.optional-dependencies]
+langsmith = ["langsmith>=0.2"]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.8",
+  "mypy>=1.13",
+  "types-PyYAML>=6.0",
+  "reportlab>=4.2",
+  "pip-audit>=2.7",
+  "botocore[crt]>=1.43.106",
+]
+
+[project.scripts]
+erp-ingest = "erp_ingestion.cli:main"
+erp-eval = "erp_evals.runner:main"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+  "packages/auth/erp_auth",
+  "packages/rag/erp_rag",
+  "packages/connectors/erp_connectors",
+  "packages/observability/erp_observability",
+  "apps/api/erp_api",
+  "services/ingestion/erp_ingestion",
+  "evals/erp_evals",
+]
+
+[tool.hatch.build]
+dev-mode-dirs = [
+  "packages/auth",
+  "packages/rag",
+  "packages/connectors",
+  "packages/observability",
+  "apps/api",
+  "services/ingestion",
+  "evals",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+extend-exclude = ["apps/web", "infra"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "ASYNC", "RUF", "SIM", "PL"]
+ignore = ["PLR0913", "PLR2004", "PLR0911", "PLR0912", "PLR0915", "PLR0917", "PLC0415", "PLW0603", "SIM905", "S101", "RUF012"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["erp_auth", "erp_rag", "erp_connectors", "erp_observability", "erp_api", "erp_ingestion", "erp_evals"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S", "PLR", "B011"]
+"evals/**" = ["S311"]
+"scripts/**" = ["S"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+mypy_path = ["packages/auth", "packages/rag", "packages/connectors", "packages/observability", "apps/api", "services/ingestion", "evals"]
+explicit_package_bases = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["boto3.*", "botocore.*", "opensearchpy.*", "pdfplumber.*", "docx.*", "bs4.*", "langsmith.*", "reportlab.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]
+markers = [
+  "integration: requires local OpenSearch + DynamoDB Local (make up-deps)",
+  "e2e: end-to-end through the HTTP API against local services",
+  "live_bedrock: calls real Amazon Bedrock (costs money; opt-in with RUN_LIVE_BEDROCK=1)",
+  "cloud: runs against a deployed AWS environment (opt-in with RUN_CLOUD_TESTS=1)",
+]
+addopts = "-ra --strict-markers"
+filterwarnings = [
+  "error::pytest.PytestUnraisableExceptionWarning",
+  "ignore:enable_cleanup_closed ignored:DeprecationWarning",
+]

@@ -1,0 +1,16 @@
+# Retrieval configuration v1. These are STARTING SETTINGS from the specification, not validated optima.
+config_version: retrieval-v1
+bm25_top_k: 50
+vector_top_k: 50
+rrf_k: 60
+rerank_candidate_limit: 40
+final_passage_limit: 10
+max_retrieval_retries: 1
+max_subqueries: 3
+max_passages_per_document: 3
+context_token_budget: 6000
+min_rerank_score: 0.15
+min_supporting_passages: 1
+neighbor_window: 1
+max_repair_cycles: 1
+max_history_turns: 4

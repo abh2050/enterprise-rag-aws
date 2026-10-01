@@ -1,0 +1,12 @@
+# Copy to data/private/<collection>/_access.yaml and edit.
+# This is the SOURCE PERMISSION RECORD for every file in the collection.
+tenant_id: 11111111-1111-4111-8111-111111111111   # synthetic Acme tenant used by the dev IdP
+allowed_groups: [acme-all-staff]                    # who may read (see config/dev-directory.yaml)
+allowed_users: []                                    # object ids, optional
+denied_groups: []                                    # explicit denies always win
+denied_users: []
+projects: []                                         # non-empty = project-restricted
+sensitivity_label: internal                          # public | internal | confidential | restricted (manual governance)
+legal_hold: false
+files: {}
+#  my-file.pdf: {title: "My File", sensitivity_label: confidential, allowed_groups: [acme-finance]}

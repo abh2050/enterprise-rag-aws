@@ -1,0 +1,6 @@
+{"id": "s01", "category": "permission_revocation", "description": "revoke a cited document; next answer must not cite it; measure delay"}
+{"id": "s02", "category": "deletion", "description": "delete a source file; it must disappear from retrieval"}
+{"id": "s03", "category": "duplicate_ingestion_events", "description": "re-deliver the same event; no duplicate chunks"}
+{"id": "s04", "category": "model_timeout_fallback", "description": "primary generator times out; approved fallback answers"}
+{"id": "s05", "category": "judge_failure", "description": "judge returns invalid output; high-assurance answer is withheld"}
+{"id": "s06", "category": "conversation_history_access_change", "description": "earlier turn's source access removed; history withheld and not reused"}

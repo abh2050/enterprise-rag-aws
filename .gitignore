@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Node
+node_modules/
+apps/web/dist/
+
+# Local state / secrets
+.env
+.env.*
+!.env.example
+!.env.local.example
+var/
+*.pem
+*.key
+
+# User documents never enter source control
+data/private/**
+!data/private/README.md
+!data/private/_access.example.yaml
+*.pdf
+*.docx
+!tests/fixtures/**/*.pdf
+!tests/fixtures/**/*.docx
+
+# Eval outputs for private datasets
+evals/reports/private/
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+infra/terraform/envs/*/backend.hcl
+**/*.tfplan.txt

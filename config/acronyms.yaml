@@ -1,0 +1,13 @@
+# Deterministic acronym glossary used by the query planner (both fixture and real models receive it).
+version: acronyms-v1
+acronyms:
+  PTO: paid time off
+  SLA: service level agreement
+  RPO: recovery point objective
+  RTO: recovery time objective
+  KPI: key performance indicator
+  OKR: objectives and key results
+  ACL: access control list
+  SOP: standard operating procedure
+  FY: fiscal year
+  WFH: work from home

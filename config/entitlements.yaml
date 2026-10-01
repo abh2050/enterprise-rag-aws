@@ -1,0 +1,11 @@
+# Server-side entitlement map: app roles (Entra "roles" claim / dev IdP) -> clearance, projects, admin.
+# Clients cannot supply any of these values.
+version: entitlements-v1
+default_clearance: internal
+roles:
+  Clearance.Internal: {clearance: internal}
+  Clearance.Confidential: {clearance: confidential}
+  Clearance.Restricted: {clearance: restricted}
+  Project.Atlas: {projects: [atlas]}
+  Documents.Admin: {admin: true}
+groups: {}

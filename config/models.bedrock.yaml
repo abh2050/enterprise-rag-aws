@@ -1,0 +1,68 @@
+# Amazon Bedrock model registry — deployment region us-east-2 (the only region the AWS Organization SCP
+# permits for this account; verified 2026-10-01). Model IDs/regions verified against Bedrock model cards.
+# Account facts (2026-10-01): Anthropic models require the Marketplace agreement (NOT accepted) → disabled;
+# bedrock:Rerank is SCP-denied and Rerank models are not offered in us-east-2 → LLM reranking.
+# Prices are PLACEHOLDERS for budget enforcement; confirm on https://aws.amazon.com/bedrock/pricing/.
+# Quality of these routes has NOT been measured (see evals/README.md).
+config_version: models-bedrock-v2
+inference_mode: live
+budgets:
+  max_cost_usd_per_request: 0.50
+  max_tokens_per_request: 300000
+models:
+  nova-pro-us:
+    provider: bedrock
+    model_id: us.amazon.nova-pro-v1:0
+    tasks: [generate, judge, rerank]
+    region: us-east-2
+    residency: geo_us   # US geo profile from us-east-2 → us-east-1, us-east-2, us-west-2 (model card)
+    max_classification: confidential
+    context_tokens: 300000
+    max_output_tokens: 4096   # model limit 5K
+    price_input_per_1k: 0.0008
+    price_output_per_1k: 0.0032
+    legacy_risk: true
+    notes: Nova v1 ("EOL no sooner than 2025-12-04" on the model card); still Active 2026-10-01.
+  nova-lite-in-region:
+    provider: bedrock
+    model_id: amazon.nova-lite-v1:0
+    tasks: [plan, generate, judge, rerank]
+    region: us-east-2
+    residency: in_region    # in-region in us-east-2 → only approved route for restricted evidence
+    max_classification: restricted
+    context_tokens: 300000
+    max_output_tokens: 4096
+    price_input_per_1k: 0.00006
+    price_output_per_1k: 0.00024
+    legacy_risk: true
+  titan-embed-v2-1024:
+    provider: bedrock
+    model_id: amazon.titan-embed-text-v2:0
+    tasks: [embed]
+    region: us-east-2
+    residency: in_region
+    max_classification: restricted
+    context_tokens: 8192
+    max_output_tokens: 1
+    embedding_dimension: 1024
+    embedding_version: titan-embed-v2-1024-v1
+    price_input_per_1k: 0.00002
+  claude-sonnet-5-us:
+    provider: bedrock
+    model_id: us.anthropic.claude-sonnet-5
+    tasks: [generate, judge, rerank]
+    region: us-east-2
+    residency: geo_us
+    max_classification: confidential
+    context_tokens: 1000000
+    max_output_tokens: 4096
+    price_input_per_1k: 0.003
+    price_output_per_1k: 0.015
+    approved: false
+    notes: Disabled — Anthropic model agreement not accepted on this account. Enable after acceptance + live smoke test.
+routes:
+  plan: {chain: [nova-lite-in-region], deadline_ms: 8000, attempt_timeout_ms: 6000, max_retries: 1}
+  embed: {chain: [titan-embed-v2-1024], deadline_ms: 15000, attempt_timeout_ms: 5000, max_retries: 2, max_concurrency: 8}
+  rerank: {chain: [nova-pro-us, nova-lite-in-region], deadline_ms: 15000, attempt_timeout_ms: 10000, max_retries: 1}
+  generate: {chain: [nova-pro-us, nova-lite-in-region], deadline_ms: 45000, attempt_timeout_ms: 25000, max_retries: 1, max_concurrency: 4}
+  judge: {chain: [nova-pro-us, nova-lite-in-region], deadline_ms: 45000, attempt_timeout_ms: 25000, max_retries: 1, max_concurrency: 4}

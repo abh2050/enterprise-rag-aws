@@ -1,0 +1,43 @@
+# SYNTHETIC development identities. Not real people or tenants. Used only by the dev IdP (local).
+overage_threshold: 200
+tenants:
+  - tenant_id: 11111111-1111-4111-8111-111111111111
+    name: Acme Corp (synthetic)
+  - tenant_id: 22222222-2222-4222-8222-222222222222
+    name: Globex (synthetic)
+users:
+  - username: alice@acme.example
+    display_name: Alice (Acme Finance)
+    tenant_id: 11111111-1111-4111-8111-111111111111
+    object_id: a1a1a1a1-0000-4000-8000-000000000001
+    groups: [acme-all-staff, acme-finance]
+    roles: [Clearance.Confidential, Project.Atlas]
+    description: Finance analyst; confidential clearance; Project Atlas member
+  - username: bob@acme.example
+    display_name: Bob (Acme Engineering)
+    tenant_id: 11111111-1111-4111-8111-111111111111
+    object_id: b2b2b2b2-0000-4000-8000-000000000002
+    groups: [acme-all-staff, acme-engineering]
+    roles: [Clearance.Internal]
+    description: Engineer; internal clearance; no finance access
+  - username: carol@globex.example
+    display_name: Carol (Globex Finance)
+    tenant_id: 22222222-2222-4222-8222-222222222222
+    object_id: c3c3c3c3-0000-4000-8000-000000000003
+    groups: [globex-all-staff, globex-finance]
+    roles: [Clearance.Confidential]
+    description: Other tenant; must never see Acme documents
+  - username: erin@acme.example
+    display_name: Erin (Acme Document Admin)
+    tenant_id: 11111111-1111-4111-8111-111111111111
+    object_id: e5e5e5e5-0000-4000-8000-000000000005
+    groups: [acme-all-staff, acme-records]
+    roles: [Clearance.Internal, Documents.Admin]
+    description: Can revoke/delete/replay documents; internal clearance
+  - username: oscar@acme.example
+    display_name: Oscar (Acme, group overage)
+    tenant_id: 11111111-1111-4111-8111-111111111111
+    object_id: 0a0a0a0a-0000-4000-8000-000000000006
+    roles: [Clearance.Internal]
+    description: Member of >200 groups so the token carries an overage marker (exercises directory adapter)
+    groups: [acme-all-staff, acme-finance, acme-team-000, acme-team-001, acme-team-002, acme-team-003, acme-team-004, acme-team-005, acme-team-006, acme-team-007, acme-team-008, acme-team-009, acme-team-010, acme-team-011, acme-team-012, acme-team-013, acme-team-014, acme-team-015, acme-team-016, acme-team-017, acme-team-018, acme-team-019, acme-team-020, acme-team-021, acme-team-022, acme-team-023, acme-team-024, acme-team-025, acme-team-026, acme-team-027, acme-team-028, acme-team-029, acme-team-030, acme-team-031, acme-team-032, acme-team-033, acme-team-034, acme-team-035, acme-team-036, acme-team-037, acme-team-038, acme-team-039, acme-team-040, acme-team-041, acme-team-042, acme-team-043, acme-team-044, acme-team-045, acme-team-046, acme-team-047, acme-team-048, acme-team-049, acme-team-050, acme-team-051, acme-team-052, acme-team-053, acme-team-054, acme-team-055, acme-team-056, acme-team-057, acme-team-058, acme-team-059, acme-team-060, acme-team-061, acme-team-062, acme-team-063, acme-team-064, acme-team-065, acme-team-066, acme-team-067, acme-team-068, acme-team-069, acme-team-070, acme-team-071, acme-team-072, acme-team-073, acme-team-074, acme-team-075, acme-team-076, acme-team-077, acme-team-078, acme-team-079, acme-team-080, acme-team-081, acme-team-082, acme-team-083, acme-team-084, acme-team-085, acme-team-086, acme-team-087, acme-team-088, acme-team-089, acme-team-090, acme-team-091, acme-team-092, acme-team-093, acme-team-094, acme-team-095, acme-team-096, acme-team-097, acme-team-098, acme-team-099, acme-team-100, acme-team-101, acme-team-102, acme-team-103, acme-team-104, acme-team-105, acme-team-106, acme-team-107, acme-team-108, acme-team-109, acme-team-110, acme-team-111, acme-team-112, acme-team-113, acme-team-114, acme-team-115, acme-team-116, acme-team-117, acme-team-118, acme-team-119, acme-team-120, acme-team-121, acme-team-122, acme-team-123, acme-team-124, acme-team-125, acme-team-126, acme-team-127, acme-team-128, acme-team-129, acme-team-130, acme-team-131, acme-team-132, acme-team-133, acme-team-134, acme-team-135, acme-team-136, acme-team-137, acme-team-138, acme-team-139, acme-team-140, acme-team-141, acme-team-142, acme-team-143, acme-team-144, acme-team-145, acme-team-146, acme-team-147, acme-team-148, acme-team-149, acme-team-150, acme-team-151, acme-team-152, acme-team-153, acme-team-154, acme-team-155, acme-team-156, acme-team-157, acme-team-158, acme-team-159, acme-team-160, acme-team-161, acme-team-162, acme-team-163, acme-team-164, acme-team-165, acme-team-166, acme-team-167, acme-team-168, acme-team-169, acme-team-170, acme-team-171, acme-team-172, acme-team-173, acme-team-174, acme-team-175, acme-team-176, acme-team-177, acme-team-178, acme-team-179, acme-team-180, acme-team-181, acme-team-182, acme-team-183, acme-team-184, acme-team-185, acme-team-186, acme-team-187, acme-team-188, acme-team-189, acme-team-190, acme-team-191, acme-team-192, acme-team-193, acme-team-194, acme-team-195, acme-team-196, acme-team-197, acme-team-198, acme-team-199, acme-team-200, acme-team-201, acme-team-202, acme-team-203, acme-team-204, acme-team-205, acme-team-206, acme-team-207, acme-team-208, acme-team-209]

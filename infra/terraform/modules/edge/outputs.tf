@@ -1,0 +1,9 @@
+output "cloudfront_domain" { value = aws_cloudfront_distribution.this.domain_name }
+output "cloudfront_distribution_id" { value = aws_cloudfront_distribution.this.id }
+output "cloudfront_distribution_arn" { value = aws_cloudfront_distribution.this.arn }
+output "web_bucket" { value = aws_s3_bucket.web.id }
+output "web_bucket_arn" { value = aws_s3_bucket.web.arn }
+output "alb_security_group_id" { value = aws_security_group.alb.id }
+output "target_group_arn" { value = aws_lb_target_group.api.arn }
+output "alb_arn_suffix" { value = aws_lb.api.arn_suffix }
+output "target_group_arn_suffix" { value = aws_lb_target_group.api.arn_suffix }

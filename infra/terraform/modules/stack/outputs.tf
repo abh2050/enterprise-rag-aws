@@ -1,0 +1,12 @@
+output "cloudfront_domain" { value = module.edge.cloudfront_domain }
+output "cloudfront_distribution_id" { value = module.edge.cloudfront_distribution_id }
+output "web_bucket" { value = module.edge.web_bucket }
+output "ecr_repository_url" { value = module.ecr.repository_urls["app"] }
+output "ecs_cluster" { value = module.ecs.cluster_name }
+output "ecs_services" { value = module.ecs.service_names }
+output "source_bucket" { value = module.storage.source_bucket }
+output "artifacts_bucket" { value = module.storage.artifacts_bucket }
+output "opensearch_endpoint" { value = module.opensearch.endpoint }
+output "state_machine" { value = module.ingestion.state_machine_name }
+output "secret_arns" { value = module.secrets.arns }
+output "github_deploy_role_arn" { value = try(module.github_oidc[0].deploy_role_arn, null) }

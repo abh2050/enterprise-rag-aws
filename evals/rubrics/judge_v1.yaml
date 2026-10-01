@@ -1,0 +1,19 @@
+# Judge rubric v1. Outputs are categorical; they are NOT probabilities of correctness.
+# Calibration status: UNCALIBRATED until evals/calibration has human-reviewed labels (see evals/calibration/README.md).
+rubric_version: judge-v1
+instructions: |
+  For each claim (indexed from 0), decide whether the cited evidence ids directly support it:
+    supported   - every factual element of the claim is stated in the cited evidence
+    partial     - some elements are supported, others are missing from the cited evidence
+    unsupported - the cited evidence does not support the claim
+  Set citation_mismatch=true when the claim is supported by other provided evidence but not by its citations.
+  relevance: does the set of claims answer the question? relevant | partially_relevant | irrelevant
+  contradictions: list any claims that contradict each other or the evidence.
+  recommendation:
+    pass    - all claims supported, relevant, no contradictions
+    revise  - some claims partial/unsupported/mismatched but at least one supported
+    abstain - nothing supported, or irrelevant
+  Output JSON: {"rubric_version": "judge-v1", "claim_findings": [{"claim_index": int,
+  "supported": "supported|partial|unsupported", "citation_mismatch": bool, "note": str}],
+  "unsupported_claims": [int], "citation_mismatches": [int], "relevance": str,
+  "contradictions": [str], "recommendation": "pass|revise|abstain", "calibrated": false}

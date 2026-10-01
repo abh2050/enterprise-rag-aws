@@ -1,0 +1,123 @@
+# CI: formatting, lint, types, unit + integration + e2e tests (real OpenSearch + DynamoDB Local service
+# containers, fixture models), web checks, dependency + secret scanning, Terraform fmt/validate, image build.
+# All actions pinned by commit SHA (tag in comment).
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    services:
+      opensearch:
+        image: opensearchproject/opensearch:3.1.0
+        env:
+          discovery.type: single-node
+          DISABLE_SECURITY_PLUGIN: "true"
+          DISABLE_INSTALL_DEMO_CONFIG: "true"
+          OPENSEARCH_JAVA_OPTS: "-Xms1g -Xmx1g"
+        ports: ["9200:9200"]
+        options: >-
+          --health-cmd "curl -fsS http://localhost:9200/_cluster/health?wait_for_status=yellow"
+          --health-interval 10s --health-timeout 10s --health-retries 30
+      dynamodb:
+        image: amazon/dynamodb-local:2.6.1
+        ports: ["8001:8000"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.6.14"
+      - run: uv python install 3.12
+      - run: uv sync --frozen --all-extras
+      - name: Format check
+        run: uv run ruff format --check packages apps services evals tests scripts
+      - name: Lint
+        run: uv run ruff check .
+      - name: Type check (strict)
+        run: uv run mypy packages apps services evals
+      - name: Tests (deterministic; no paid APIs)
+        run: uv run pytest -q -m "not live_bedrock and not cloud"
+      - name: Deterministic eval (FIXTURE inference — not model-quality evidence)
+        run: uv run erp-eval --out evals/reports/ci
+      - name: Dependency audit
+        run: uv export --frozen --no-dev --all-extras --format requirements-txt --no-emit-project > /tmp/req.txt && uv run pip-audit -r /tmp/req.txt --no-deps --disable-pip --strict
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: eval-report
+          path: evals/reports/ci
+
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22.20.0"
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npm audit --omit=dev --audit-level=high
+
+  secrets:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  terraform:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
+        with:
+          terraform_version: "1.13.3"
+      - run: terraform fmt -recursive -check infra
+      - name: Validate every root (no backend, no AWS credentials)
+        run: |
+          for root in infra/terraform/envs/dev infra/terraform/envs/staging infra/terraform/envs/prod infra/langsmith; do
+            echo "== $root"
+            terraform -chdir=$root init -backend=false -input=false
+            terraform -chdir=$root validate
+          done
+
+  image:
+    runs-on: ubuntu-24.04
+    needs: [python]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: apps/api/Dockerfile
+          platforms: linux/arm64,linux/amd64 # api = arm64, worker = amd64 (ClamAV sidecar is amd64-only)
+          push: false
+          tags: erp-app:ci

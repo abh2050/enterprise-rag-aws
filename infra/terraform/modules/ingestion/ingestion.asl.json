@@ -1,0 +1,37 @@
+{
+  "Comment": "Per-event ingestion: hand the event to a Fargate worker via task token; bounded retries; failures surface as Failed executions (alarmed) and the worker records quarantine/replay state in DynamoDB.",
+  "StartAt": "Process",
+  "States": {
+    "Process": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sqs:sendMessage.waitForTaskToken",
+      "Parameters": {
+        "QueueUrl": "${worker_queue_url}",
+        "MessageBody": {
+          "taskToken.$": "$$.Task.Token",
+          "executionId.$": "$$.Execution.Id",
+          "records.$": "$"
+        }
+      },
+      "HeartbeatSeconds": 600,
+      "TimeoutSeconds": 3600,
+      "Retry": [
+        {
+          "ErrorEquals": ["States.Timeout", "States.HeartbeatTimeout", "Ingestion.Retryable"],
+          "IntervalSeconds": 30,
+          "MaxAttempts": 2,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Catch": [
+        { "ErrorEquals": ["States.ALL"], "ResultPath": "$.error", "Next": "Failed" }
+      ],
+      "End": true
+    },
+    "Failed": {
+      "Type": "Fail",
+      "Error": "IngestionFailed",
+      "Cause": "Worker reported failure or retries exhausted; see worker logs and the events table for replay."
+    }
+  }
+}

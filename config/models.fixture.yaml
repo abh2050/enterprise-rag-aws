@@ -1,0 +1,80 @@
+# FIXTURE model registry — local development and deterministic tests only.
+# FIXTURE — NOT EVIDENCE OF MODEL QUALITY. Production startup refuses model_provider=fixture.
+config_version: models-fixture-v1
+inference_mode: fixture
+budgets:
+  max_cost_usd_per_request: 0.50
+  max_tokens_per_request: 200000
+models:
+  fixture-planner:
+    provider: fixture
+    model_id: fixture/planner
+    tasks: [plan]
+    region: local
+    residency: local
+    max_classification: confidential
+    context_tokens: 32000
+    max_output_tokens: 512
+  fixture-embedder:
+    provider: fixture
+    model_id: fixture/hash-embed-384
+    tasks: [embed]
+    region: local
+    residency: local
+    max_classification: restricted
+    context_tokens: 8000
+    max_output_tokens: 1
+    embedding_dimension: 384
+    embedding_version: fixture-hash-384-v1
+  fixture-reranker:
+    provider: fixture
+    model_id: fixture/lexical-rerank
+    tasks: [rerank]
+    region: local
+    residency: local
+    max_classification: restricted
+    context_tokens: 64000
+    max_output_tokens: 1
+  fixture-generator-primary:
+    provider: fixture
+    model_id: fixture/extractive-generator
+    tasks: [generate]
+    region: local
+    residency: local
+    max_classification: confidential
+    context_tokens: 64000
+    max_output_tokens: 1024
+  fixture-generator-fallback:
+    provider: fixture
+    model_id: fixture/extractive-generator-fallback
+    tasks: [generate]
+    region: local
+    residency: local
+    max_classification: confidential
+    context_tokens: 64000
+    max_output_tokens: 1024
+  fixture-judge:
+    provider: fixture
+    model_id: fixture/lexical-judge
+    tasks: [judge]
+    region: local
+    residency: local
+    max_classification: confidential
+    context_tokens: 64000
+    max_output_tokens: 1024
+  fixture-unapproved:
+    provider: fixture
+    model_id: fixture/unapproved
+    tasks: [generate]
+    region: local
+    residency: local
+    max_classification: restricted
+    context_tokens: 64000
+    approved: false
+    notes: Present only to prove unapproved models are never selected.
+routes:
+  plan: {chain: [fixture-planner], deadline_ms: 3000, max_retries: 1}
+  embed: {chain: [fixture-embedder], deadline_ms: 5000, max_retries: 1}
+  rerank: {chain: [fixture-reranker], deadline_ms: 3000, max_retries: 1}
+  generate: {chain: [fixture-generator-primary, fixture-generator-fallback], deadline_ms: 3000, attempt_timeout_ms: 1000, max_retries: 1, backoff_base_ms: 10}
+  judge: {chain: [fixture-judge], deadline_ms: 3000, attempt_timeout_ms: 1000, max_retries: 1, backoff_base_ms: 10}

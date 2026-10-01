@@ -1,0 +1,13 @@
+<!doctype html>
+<html><head><title>Deployment Guide</title><script>alert('scripts are stripped')</script></head>
+<body>
+<h1>Deployment Guide</h1>
+<p>All production deployments use blue/green releases through the deployment pipeline.</p>
+<h2>Deployment Windows</h2>
+<p>Production deployments are allowed Monday to Thursday between 09:00 and 16:00 Pacific time.
+Deployments on Fridays require approval from the release manager.</p>
+<h2>Rollback</h2>
+<p>If error rates exceed two percent after a release, the pipeline automatically rolls back to
+the previous version within ten minutes.</p>
+<img src="diagram.png" alt="Blue green deployment diagram">
+</body></html>
