@@ -9,7 +9,7 @@ The development system has recorded AWS verification. Production readiness requi
 - CloudFront SPA/API health, private-origin readiness, security headers, unauthenticated/forged-token rejection and a WAF probe.
 - Selected encryption, network, store, role, audit, backup and image configuration checks.
 
-These checks should be repeated against the exact candidate deployment before a production release. A recorded PASS from the repository checker is not an independent compliance audit. The image check permits high findings: the retained report records **two HIGH and one MEDIUM finding per image architecture**, despite no CRITICAL findings.
+These checks should be repeated against the exact candidate deployment before a production release. A recorded PASS from the repository checker is not an independent compliance audit. The image check permits high findings: the retained report records **two HIGH and one MEDIUM finding per image architecture**, despite no CRITICAL findings. Disposition: [security-scan.md](security-scan.md).
 
 ## Identity and source integration
 
@@ -48,7 +48,7 @@ These checks should be repeated against the exact candidate deployment before a 
 ## Recovery and observability
 
 - Execute a full restore drill with retained receipts. Reapply revocations created after the restore point before reopening traffic.
-- Verify backup jobs, recoverability, alarm delivery, subscriptions and on-call escalation. Existing diagram annotations are not a substitute for detailed receipts.
+- Verify recoverability, subscriptions and on-call escalation. [ops-dev.json](verification/ops-dev.json) records a completed DynamoDB backup job and a successful alarm → SNS action. Neither proves a restore or a human receiving the page.
 - Verify audit-log delivery, redaction and access isolation end to end under failure/queue pressure.
 - Measure achieved RPO/RTO against proposed objectives in the recovery runbook.
 - Cross-region DR is not implemented; design it only when the business requires it.

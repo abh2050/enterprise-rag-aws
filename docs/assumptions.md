@@ -4,7 +4,7 @@ Recorded 2026-09-30. Revisit any item marked **(revisit)** before production.
 
 ## Scope and environment
 1. Greenfield repo. No prior conventions to preserve.
-2. AWS target: profile `awsnew` (account 054772656600), region **us-east-2**, the only region the AWS Organization SCP permits for regional services (changed from us-west-2 on 2026-10-01). Minimal dev footprint. Self-hosted LangSmith
+2. AWS target: profile `awsnew` (account ID redacted), region **us-east-2**, the only region the AWS Organization SCP permits for regional services (changed from us-west-2 on 2026-10-01). Minimal dev footprint. Self-hosted LangSmith
    Terraform is written but **not applied** (license and cost). Any apply needs explicit user approval
    after `terraform plan`.
 3. No SharePoint or M365 tenant is available. Local file and S3 connectors are the primary sources. The

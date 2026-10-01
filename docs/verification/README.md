@@ -8,6 +8,8 @@ These snapshots preserve existing verification outputs found in `var/verificatio
 | [Edge](edge.json) | 12/12 passed | [`verify_aws_edge.py`](../../scripts/verify_aws_edge.py), CloudFront HTTP probes, readiness, headers and rejection checks |
 | [Infrastructure posture](posture-dev.json) | 58/58 passed | [`verify_aws_posture.py`](../../scripts/verify_aws_posture.py), AWS configuration inspection |
 | [Ingestion lifecycle](lifecycle-dev.json) | 8/8 passed | [`verify_aws_lifecycle.py`](../../scripts/verify_aws_lifecycle.py), synthetic uploads and lifecycle changes against AWS |
+| [Cold-run evaluation](cloud-verify-dev-coldrun.json) | Same 22 questions on the previous image (…e); every item computed, no cache reuse; p50 2884 ms · p95 4012 ms · est. $0.0024/item; 7/7 scenarios | Same `cloud_verify.py` job, 17:09Z; the reference for cold-path latency and cost |
+| [Operational receipts](ops-dev.json) | 4/4 passed | [`verify_aws_ops.py`](../../scripts/verify_aws_ops.py), read-only: alarm → SNS action history, AWS Backup job states, CloudTrail delivery status, audit-log scan (100 events, 0 token/secret/corpus-text hits) |
 
 ## What the live evaluation establishes
 
@@ -33,11 +35,11 @@ The seven scenarios cover an allowed answer, validated answer-cache reuse, group
 
 **Identity boundary:** synthetic principals were constructed inside the VPC job. Real Microsoft Entra sign-in, real tenant tokens, Graph group overage, SharePoint, and Purview remain unverified. Edge probes demonstrate health and unauthenticated rejection, not a successful Entra-authenticated answer.
 
-**Infrastructure boundary:** 58 passing checks are the result of this repository's checker, not an independent audit. The ECR check only requires no **CRITICAL** findings; its evidence still records **two HIGH and one MEDIUM** finding per architecture. Remediation and rescanning remain work to do.
+**Infrastructure boundary:** 58 passing checks are the result of this repository's checker, not an independent audit. The ECR check only requires no **CRITICAL** findings; its evidence still records **two HIGH and one MEDIUM** finding per architecture. Those findings are in zlib, gcc-14 runtime libraries and dash, and Debian 13 had no fixed versions on 2026-10-01. The disposition and pre-production plan are in [security-scan.md](../security-scan.md).
 
-**Recovery boundary:** PITR, Object Lock, and a daily backup configuration are reported. A complete restore drill, recovery timing, and cross-region recovery are not established by these snapshots. Earlier diagram annotations about completed backup jobs or alarm delivery have no corresponding detailed receipt here and are not promoted to verified claims.
+**Recovery boundary:** PITR, Object Lock, and a daily backup configuration are reported. A complete restore drill, recovery timing, and cross-region recovery are not established by these snapshots. [ops-dev.json](ops-dev.json) records a completed DynamoDB backup job and a successful alarm → SNS action. Neither one is a restore test.
 
-**Diagram boundary:** the ten existing diagrams are retained as architecture artifacts. Their embedded annotations may reflect earlier runs, different latency mixes, or proposed recovery targets. This evidence directory is the source for the metrics quoted in the README and portfolio.
+**Diagram boundary:** the ten existing diagrams are retained as architecture artifacts. Each figure on a diagram points to a file in this directory, and recovery targets are labelled as proposed. This evidence directory is the source for the metrics quoted in the README and portfolio.
 
 ## Local fixture evaluation
 

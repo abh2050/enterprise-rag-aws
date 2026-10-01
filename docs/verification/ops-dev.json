@@ -1,0 +1,33 @@
+{
+  "provenance": {
+    "source": "var/verification/ops-dev.json",
+    "source_sha256": "fb523b7c991817b673210db49ae351b0ed7f63eae098615cc2e2841bfb9f7faa",
+    "note": "Read-only operational receipts collected 2026-10-01 by scripts/verify_aws_ops.py. Infrastructure identifiers redacted."
+  },
+  "report": {
+    "env": "dev",
+    "checked_at": "2026-10-01T18:57:00.542072+00:00",
+    "results": [
+      {
+        "check": "Alarm action delivered to SNS",
+        "status": "PASS",
+        "evidence": "5 alarms; 1 successful SNS actions; latest erp-dev-ingestion-failed at 2026-10-01T10:01:43.773000-07:00"
+      },
+      {
+        "check": "AWS Backup jobs completed (last 14 days)",
+        "status": "PASS",
+        "evidence": "states={'COMPLETED': 1}; completed resource types=['DynamoDB']"
+      },
+      {
+        "check": "CloudTrail logging and delivering",
+        "status": "PASS",
+        "evidence": "IsLogging=True; latest delivery=2026-10-01T11:53:33.571000-07:00; delivery error=none"
+      },
+      {
+        "check": "Audit log populated without secret or document-text leakage",
+        "status": "PASS",
+        "evidence": "100 events; kinds={'acl.update': 1, 'auth.reject': 2, 'document.delete': 1, 'ingest.publish': 16, 'ingest.quarantine': 2, 'qa.answer': 78}; pattern hits={'jwt': 0, 'bearer': 0, 'aws_secret_key': 0, 'private_key': 0}; corpus-sentence hits=0 (checked 39 sentences)"
+      }
+    ]
+  }
+}

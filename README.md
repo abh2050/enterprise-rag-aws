@@ -71,7 +71,7 @@ Every result above is traceable to a [preserved report](docs/verification/README
 
 [![AWS system architecture: CloudFront and a private ALB serve a Fargate API; an event-driven ingestion worker uses Bedrock, OpenSearch, DynamoDB and S3.](docs/diagrams/01-system-overview.drawio.png)](docs/diagrams/01-system-overview.drawio.png)
 
-*Click diagrams for full resolution. Editable draw.io sources are in [docs/diagrams](docs/diagrams). The drawings describe architecture and contain historical annotations; [verification evidence](docs/verification/README.md) controls the current documented result claims.*
+*Click diagrams for full resolution. Editable draw.io sources are in [docs/diagrams](docs/diagrams). Each result figure on a diagram is backed by a file in [verification evidence](docs/verification/README.md), which controls the documented result claims.*
 
 **Serving path:** browser → CloudFront/WAF → private VPC origin → internal ALB → ECS Fargate API → OpenSearch, DynamoDB and Bedrock. CloudFront also serves the SPA from a private S3 origin using origin access control.
 
@@ -298,7 +298,7 @@ make eval                 # SIMULATED fixture evaluation
 
 The evaluation harness reports retrieval recall/nDCG, expected-source citations, citation validity, authorization violations, injection-string hits, abstention behavior, latency, estimated cost, ingestion freshness and revocation delay. It preserves dataset/config identifiers and labels fixture versus live inference. [Calibration tooling](evals/calibration/README.md) supports human-label comparison and Cohen's kappa; calibration has not been completed.
 
-**Read latency honestly:** the preserved live run has a mixed-path p50 of 45.37 ms and p95 of 3.56 s, including reused work and zero-cost items. Those values are not a fresh-generation or concurrency benchmark. The diagram's older cold-path annotations describe a different snapshot and are not used as headline performance claims.
+**Read latency honestly:** the preserved live run has a mixed-path p50 of 45.37 ms and p95 of 3.56 s, including reused work and zero-cost items. Those values are not a fresh-generation or concurrency benchmark. The cold-path reference is the [earlier run](docs/verification/cloud-verify-dev-coldrun.json) on the previous image. There, every item was computed with no cache reuse: p50 2.88 s, p95 4.01 s, about $0.0024 estimated per item, from 22 synthetic questions run sequentially. It is still not a load or concurrency benchmark.
 
 ## Infrastructure, delivery, and operations
 
@@ -405,8 +405,8 @@ The exporter and separate Terraform root exist. The self-hosted platform needs i
 - Complete real Entra sign-in and Graph overage tests; validate SharePoint permission completeness and Purview label mapping with a tenant.
 - Evaluate a reviewed representative dataset, calibrate the judge with human labels, and test adversarial inputs beyond the synthetic examples.
 - Measure throughput, fresh-answer latency, throttling behavior and model cost under concurrent load.
-- Remediate the recorded container high/medium findings and rescan; complete independent IAM/security review.
-- Exercise restore, alarm delivery and failure recovery with retained receipts; define owner-approved SLOs.
+- Remediate the recorded container HIGH/MEDIUM findings (zlib, gcc-14 runtime, dash; no Debian fix as of 2026-10-01, see [security-scan.md](docs/security-scan.md)) and rescan; complete an independent IAM/security review.
+- Exercise restore and failure recovery with retained receipts. An alarm → SNS action and a completed backup job are already recorded in [ops-dev.json](docs/verification/ops-dev.json). Confirm subscriptions and on-call escalation, and define owner-approved SLOs.
 - Configure GitHub OIDC and protected environments; validate the hosted delivery workflow.
 - Replace placeholder prices and governance IDs; review model lifecycle/access and residency policy before deployment.
 - Deploy and validate staging/prod when required; implement cross-region recovery and streaming only if the product needs them.

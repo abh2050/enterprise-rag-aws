@@ -190,7 +190,7 @@ for `awsnew` are not present in this session.
 
 ## Stage 7: AWS deployment (dev), in progress (2026-10-01)
 
-**Account checks (read-only unless noted)**: `awsnew` = account 054772656600 (role AccountFullAccessRole).
+**Account checks (read-only unless noted)**: `awsnew` = dev account (ID redacted; role AccountFullAccessRole).
 * AWS Organization SCP (`p-84dcnqrz`) **denies regional services in us-west-2, us-east-1, eu-west-1**. us-east-2
   allows all required services **except GuardDuty**.
 * Bedrock (2 approved live calls): **Titan V2 embedding succeeded in us-east-2**. Claude Sonnet 5 was denied because the
@@ -211,7 +211,7 @@ goes via Step Functions to the worker. CI/deploy builds a multi-arch image.
 **Blocked on user approval**: create the Terraform state bucket (`scripts/bootstrap-state.sh dev`, us-east-2), then
 `terraform plan` for review. No AWS resources have been created yet.
 
-### Stage 7 result (2026-10-01): dev DEPLOYED to account 054772656600, us-east-2
+### Stage 7 result (2026-10-01): dev DEPLOYED to the dev account, us-east-2
 
 * `terraform apply` (approved): 162 resources. The first run hit expired `aws login` session tokens mid-apply. State was
   recovered (`state push` of errored.tfstate + `force-unlock`), and Terraform now runs natively with a refreshing

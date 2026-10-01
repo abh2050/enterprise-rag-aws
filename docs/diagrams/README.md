@@ -17,17 +17,17 @@ Ten existing AWS diagrams document the platform. PNGs are suitable for the READM
 
 ## Reading the evidence correctly
 
-These diagrams were present before the documentation update and have been preserved. They combine topology, implementation notes, historical results and proposed operational targets. The [verification directory](../verification/README.md) is authoritative for the result figures in the updated README and portfolio.
+The diagrams combine topology, implementation notes, recorded results and proposed operational targets. They were revised on 2026-10-01 after the documentation review, so that every figure on a diagram points to a file in the [verification directory](../verification/README.md). That directory is authoritative for result figures.
 
-- The query diagram includes earlier cold-path timing/cost annotations. The retained report is a mixed-path run and must not be relabeled as a cold-path measurement.
-- The observability diagram includes alarm-delivery and backup-job annotations without a corresponding detailed receipt in the preserved evidence set. Backup/PITR configuration is recorded; complete restore behavior and recovery times are not established.
+- The query diagram quotes the **cold run** ([cloud-verify-dev-coldrun.json](../verification/cloud-verify-dev-coldrun.json): previous image, every item computed, no cache reuse). The later [cloud-verify-dev.json](../verification/cloud-verify-dev.json) is a mixed warm/cold run, and its latency must not be read as cold-path.
+- Every observability annotation now has a receipt in [ops-dev.json](../verification/ops-dev.json): alarm action → SNS, completed AWS Backup job (DynamoDB), CloudTrail delivery status, and an audit-log leak scan. A restore has **not** been drilled, so recovery times remain unestablished.
 - Recovery RPO/RTO values are proposed objectives.
-- Authorization diagrams simplify the enforcement flow. `search_filter()` performs index prefiltering; `decide()` handles authoritative policy. Audit records a decision and is not itself an access-control gate. Downloads also perform policy checks.
+- The authorization diagram distinguishes the index prefilter (`search_filter()`, E1 and the neighbour fetch E6) from authoritative `decide()` (E2–E5, including downloads). Audit is drawn as a record, not a gate.
 - Microsoft Entra, Graph, SharePoint and Purview integration paths are implemented but not live-verified. Optional LangSmith is not deployed.
-- CloudFront is a global edge service even when shown within a regional deployment grouping. DynamoDB is regional, not a resource deployed inside the VPC. The network view distinguishes gateway access from private compute placement.
+- CloudFront and its WAF are drawn outside the regional grouping because they are global. DynamoDB is drawn outside the VPC because it is regional and reached through a gateway endpoint. No account identifiers appear on the diagrams.
 
 ## Existing generation workflow
 
 The repository includes `build_diagrams.py`, `_drawio.py`, the existing AWS diagram skill under `.claude/skills/`, and [`scripts/render-diagrams.sh`](../../scripts/render-diagrams.sh). The shell workflow regenerates draw.io sources, validates them, and exports PNGs through a headless draw.io container. Generated images can be opened in draw.io for editing.
 
-Regeneration replaces the source artifacts from the existing Python definitions; it is unnecessary just to view or publish the documentation. The documentation update did not modify those generators or the application code.
+Regeneration replaces the source artifacts from the Python definitions in `build_diagrams.py`. You don't need it just to view or publish the documentation. To change a diagram, edit `build_diagrams.py` and run `scripts/render-diagrams.sh [name…]`.

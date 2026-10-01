@@ -71,7 +71,7 @@ dev-mode-dirs = [
 [tool.ruff]
 line-length = 110
 target-version = "py312"
-extend-exclude = ["apps/web", "infra"]
+extend-exclude = ["apps/web", "infra", ".claude"]  # .claude: vendored third-party skill
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP", "S", "ASYNC", "RUF", "SIM", "PL"]
@@ -84,6 +84,8 @@ known-first-party = ["erp_auth", "erp_rag", "erp_connectors", "erp_observability
 "tests/**" = ["S", "PLR", "B011"]
 "evals/**" = ["S311"]
 "scripts/**" = ["S"]
+# Diagram definitions are mostly long, typographic label strings (–, ×, ·) rendered on the drawings.
+"docs/diagrams/**" = ["E501", "RUF001"]
 
 [tool.mypy]
 python_version = "3.12"

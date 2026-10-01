@@ -57,8 +57,21 @@ RESOURCE = {
 }
 # General resources (standalone, dark)
 GENERAL = {
-    "users", "user", "client", "internet", "internet_alt1", "document", "documents", "source_code",
-    "saml_token", "servers", "traditional_server", "office_building", "gear", "generic_firewall", "sdk",
+    "users",
+    "user",
+    "client",
+    "internet",
+    "internet_alt1",
+    "document",
+    "documents",
+    "source_code",
+    "saml_token",
+    "servers",
+    "traditional_server",
+    "office_building",
+    "gear",
+    "generic_firewall",
+    "sdk",
 }
 
 GROUPS = {
@@ -120,8 +133,15 @@ class Page:
 
     def __post_init__(self) -> None:
         self.cells.append(
-            Cell("bg", "", "rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=none;",
-                 0, 0, self.width, self.height)
+            Cell(
+                "bg",
+                "",
+                "rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=none;",
+                0,
+                0,
+                self.width,
+                self.height,
+            )
         )
 
     def _uid(self, prefix: str) -> str:
@@ -136,83 +156,159 @@ class Page:
 
     # ---- vertices -------------------------------------------------------------------------
     def title(self, title: str, subtitle: str) -> None:
-        self._add(Cell(self._uid("title"), f"<b style='font-size:20px'>{title}</b><br>{subtitle}",
-                       "text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=13;"
-                       "spacing=8;fontColor=#232F3E;", 30, 20, 1500, 70))
+        self._add(
+            Cell(
+                self._uid("title"),
+                f"<b style='font-size:20px'>{title}</b><br>{subtitle}",
+                "text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=13;"
+                "spacing=8;fontColor=#232F3E;",
+                30,
+                20,
+                1500,
+                70,
+            )
+        )
 
-    def icon(self, id: str, name: str, label: str, x: float, y: float, parent: str = "1", size: int = 78,
-             lp: str = "b") -> str:
+    def icon(
+        self,
+        id: str,
+        name: str,
+        label: str,
+        x: float,
+        y: float,
+        parent: str = "1",
+        size: int = 78,
+        lp: str = "b",
+    ) -> str:
         lab = LABEL + LABEL_POS[lp]
         if name in SERVICE:
-            style = (f"sketch=0;outlineConnect=0;{lab}fillColor={SERVICE[name]};strokeColor=#ffffff;dashed=0;"
-                     f"aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.{name};")
+            style = (
+                f"sketch=0;outlineConnect=0;{lab}fillColor={SERVICE[name]};strokeColor=#ffffff;dashed=0;"
+                f"aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.{name};"
+            )
         elif name in RESOURCE:
-            style = (f"sketch=0;outlineConnect=0;{lab}fillColor={RESOURCE[name]};strokeColor=none;dashed=0;"
-                     f"aspect=fixed;shape=mxgraph.aws4.{name};")
+            style = (
+                f"sketch=0;outlineConnect=0;{lab}fillColor={RESOURCE[name]};strokeColor=none;dashed=0;"
+                f"aspect=fixed;shape=mxgraph.aws4.{name};"
+            )
         elif name in GENERAL:
-            style = (f"sketch=0;outlineConnect=0;{lab}fillColor=#232F3D;strokeColor=none;dashed=0;"
-                     f"aspect=fixed;shape=mxgraph.aws4.{name};")
+            style = (
+                f"sketch=0;outlineConnect=0;{lab}fillColor=#232F3D;strokeColor=none;dashed=0;"
+                f"aspect=fixed;shape=mxgraph.aws4.{name};"
+            )
         else:
             raise KeyError(f"unverified icon {name}")
         return self._add(Cell(id, label, style, x, y, size, size, parent))
 
-    def box(self, id: str, label: str, x: float, y: float, w: float = 210, h: float = 80, parent: str = "1",
-            fill: str = "#FFFFFF", stroke: str = "#545B64", font: int = 12, align: str = "center") -> str:
-        style = (f"rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor={fill};strokeColor={stroke};"
-                 f"fontSize={font};fontColor=#232F3E;align={align};spacing=6;")
+    def box(
+        self,
+        id: str,
+        label: str,
+        x: float,
+        y: float,
+        w: float = 210,
+        h: float = 80,
+        parent: str = "1",
+        fill: str = "#FFFFFF",
+        stroke: str = "#545B64",
+        font: int = 12,
+        align: str = "center",
+    ) -> str:
+        style = (
+            f"rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor={fill};strokeColor={stroke};"
+            f"fontSize={font};fontColor=#232F3E;align={align};spacing=6;"
+        )
         return self._add(Cell(id, label, style, x, y, w, h, parent))
 
-    def note(self, label: str, x: float, y: float, w: float, h: float, parent: str = "1", font: int = 12) -> str:
-        style = (f"text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize={font};"
-                 "fontColor=#232F3E;spacing=10;fillColor=#FFFFFF;strokeColor=#D5DBDB;arcSize=4;")
+    def note(
+        self, label: str, x: float, y: float, w: float, h: float, parent: str = "1", font: int = 12
+    ) -> str:
+        style = (
+            f"text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize={font};"
+            "fontColor=#232F3E;spacing=10;fillColor=#FFFFFF;strokeColor=#D5DBDB;arcSize=4;"
+        )
         return self._add(Cell(self._uid("note"), label, style, x, y, w, h, parent))
 
-    def group(self, id: str, kind: str, label: str, x: float, y: float, w: float, h: float,
-              parent: str = "1") -> str:
+    def group(
+        self, id: str, kind: str, label: str, x: float, y: float, w: float, h: float, parent: str = "1"
+    ) -> str:
         gr, stroke, font = GROUPS[kind]
-        style = ("points=[];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;"
-                 "container=1;dropTarget=1;pointerEvents=0;collapsible=0;recursiveResize=0;"
-                 f"shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.{gr};strokeColor={stroke};fillColor=none;"
-                 f"verticalAlign=top;align=left;spacingLeft=30;fontColor={font};dashed=0;")
+        style = (
+            "points=[];outlineConnect=0;gradientColor=none;html=1;whiteSpace=wrap;fontSize=12;fontStyle=1;"
+            "container=1;dropTarget=1;pointerEvents=0;collapsible=0;recursiveResize=0;"
+            f"shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.{gr};strokeColor={stroke};fillColor=none;"
+            f"verticalAlign=top;align=left;spacingLeft=30;fontColor={font};dashed=0;"
+        )
         return self._add(Cell(id, label, style, x, y, w, h, parent))
 
-    def dgroup(self, id: str, label: str, x: float, y: float, w: float, h: float, parent: str = "1",
-               color: str = "#5A6C86") -> str:
-        style = ("whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;container=1;dropTarget=1;"
-                 f"collapsible=0;recursiveResize=0;strokeColor={color};fontColor={color};verticalAlign=top;"
-                 "align=left;spacingLeft=10;spacingTop=4;fontSize=12;fontStyle=1;")
+    def dgroup(
+        self,
+        id: str,
+        label: str,
+        x: float,
+        y: float,
+        w: float,
+        h: float,
+        parent: str = "1",
+        color: str = "#5A6C86",
+    ) -> str:
+        style = (
+            "whiteSpace=wrap;html=1;fillColor=none;dashed=1;dashPattern=8 8;container=1;dropTarget=1;"
+            f"collapsible=0;recursiveResize=0;strokeColor={color};fontColor={color};verticalAlign=top;"
+            "align=left;spacingLeft=10;spacingTop=4;fontSize=12;fontStyle=1;"
+        )
         return self._add(Cell(id, label, style, x, y, w, h, parent))
 
     # ---- edges ----------------------------------------------------------------------------
-    def edge(self, src: str, dst: str, label: str = "", kind: str = "solid", exit: str = "r",
-             entry: str = "l", ex: tuple[float, float] | None = None, en: tuple[float, float] | None = None,
-             both: bool = False, pts: tuple[tuple[float, float], ...] = ()) -> str:
+    def edge(
+        self,
+        src: str,
+        dst: str,
+        label: str = "",
+        kind: str = "solid",
+        exit: str = "r",
+        entry: str = "l",
+        ex: tuple[float, float] | None = None,
+        en: tuple[float, float] | None = None,
+        both: bool = False,
+        pts: tuple[tuple[float, float], ...] = (),
+    ) -> str:
         sx, sy = ex or SIDES[exit]
         tx, ty = en or SIDES[entry]
         vertical = exit in ("t", "b") and ex is None
         lab = "align=right;" if vertical else "verticalAlign=bottom;"
-        style = ("edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;"
-                 f"strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;{lab}"
-                 f"exitX={sx};exitY={sy};exitDx=0;exitDy=0;entryX={tx};entryY={ty};entryDx=0;entryDy=0;"
-                 f"endArrow=block;endFill=1;{'startArrow=block;startFill=1;' if both else ''}{EDGE_KIND[kind]}")
+        style = (
+            "edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;"
+            f"strokeColor=#545B64;fontColor=#232F3E;labelBackgroundColor=#F5F5F5;fontSize=11;{lab}"
+            f"exitX={sx};exitY={sy};exitDx=0;exitDy=0;entryX={tx};entryY={ty};entryDx=0;entryDy=0;"
+            f"endArrow=block;endFill=1;{'startArrow=block;startFill=1;' if both else ''}{EDGE_KIND[kind]}"
+        )
         c = Cell(self._uid("e"), label, style, edge=True, source=src, target=dst, points=pts)
         self.cells.append(c)
         return c.id
 
     # ---- output ---------------------------------------------------------------------------
     def xml(self) -> str:
-        out = [f'  <diagram id="{self.id}" name="{escape(self.name)}">',
-               f'    <mxGraphModel dx="{self.width + 400}" dy="{self.height + 200}" grid="1" gridSize="10" '
-               'guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" '
-               f'pageWidth="{self.width}" pageHeight="{self.height}" math="0" shadow="0">',
-               "      <root>", '        <mxCell id="0" />', '        <mxCell id="1" parent="0" />']
-        ordered = self.cells[:1] + [c for c in self.cells if c.edge] + [c for c in self.cells[1:] if not c.edge]
+        out = [
+            f'  <diagram id="{self.id}" name="{escape(self.name)}">',
+            f'    <mxGraphModel dx="{self.width + 400}" dy="{self.height + 200}" grid="1" gridSize="10" '
+            'guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" '
+            f'pageWidth="{self.width}" pageHeight="{self.height}" math="0" shadow="0">',
+            "      <root>",
+            '        <mxCell id="0" />',
+            '        <mxCell id="1" parent="0" />',
+        ]
+        ordered = (
+            self.cells[:1] + [c for c in self.cells if c.edge] + [c for c in self.cells[1:] if not c.edge]
+        )
         for c in ordered:
             q = lambda s: escape(s, {'"': "&quot;"})  # noqa: E731
             val = f' value="{q(c.value)}"' if c.value else ""
             if c.edge:
-                out.append(f'        <mxCell id="{c.id}"{val} style="{q(c.style)}" edge="1" parent="1" '
-                           f'source="{c.source}" target="{c.target}">')
+                out.append(
+                    f'        <mxCell id="{c.id}"{val} style="{q(c.style)}" edge="1" parent="1" '
+                    f'source="{c.source}" target="{c.target}">'
+                )
                 if c.points:
                     out.append('          <mxGeometry relative="1" as="geometry">')
                     out.append('            <Array as="points">')
@@ -223,9 +319,13 @@ class Page:
                     out.append('          <mxGeometry relative="1" as="geometry" />')
             else:
                 px, py = self._abs.get(c.parent, (0, 0))
-                out.append(f'        <mxCell id="{c.id}"{val} style="{q(c.style)}" vertex="1" parent="{c.parent}">')
-                out.append(f'          <mxGeometry x="{c.x - px:g}" y="{c.y - py:g}" width="{c.w:g}" '
-                           f'height="{c.h:g}" as="geometry" />')
+                out.append(
+                    f'        <mxCell id="{c.id}"{val} style="{q(c.style)}" vertex="1" parent="{c.parent}">'
+                )
+                out.append(
+                    f'          <mxGeometry x="{c.x - px:g}" y="{c.y - py:g}" width="{c.w:g}" '
+                    f'height="{c.h:g}" as="geometry" />'
+                )
             out.append("        </mxCell>")
         ids = {c.id for c in self.cells}
         for c in self.cells:
