@@ -44,3 +44,6 @@ evals/reports/private/
 crash.log
 infra/terraform/envs/*/backend.hcl
 **/*.tfplan.txt
+
+# Launch-video render workspace
+brag-output/
